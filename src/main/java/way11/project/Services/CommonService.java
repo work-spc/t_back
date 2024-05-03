@@ -34,10 +34,12 @@ public class CommonService {
         List<ProfileAnswer> temp = new ArrayList<>();
         body.getAnswers().stream().forEach(elem -> {
             ProfileAnswer part = new ProfileAnswer();
-            part.setProfile(profile);
-            part.setAnswer(answerRepo.findById(elem.getAnswer()));
-            part.setQuestion(questionRepo.findById(elem.getQuestion()));
-            temp.add(part);
+            if (elem != null) {
+                part.setProfile(profile);
+                part.setAnswer(answerRepo.findById(elem.getAnswer()));
+                part.setQuestion(questionRepo.findById(elem.getQuestion()));
+                temp.add(part);
+            }
         });
         profile.setAnswers(temp);
         return profileRepo.save(profile);
